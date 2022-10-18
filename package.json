@@ -1,0 +1,15 @@
+{
+  "name": "business-card",
+  "version": "1.0.0",
+  "description": "build business card",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Miros",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "express": "^4.18.2"
+  }
+}
