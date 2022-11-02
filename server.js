@@ -1,36 +1,32 @@
-const FileSystem = require("fs");
-const path = require('path')
-const { mkdir, readdir, writeFile, rmdir, unlink } = require("fs/promises");
-const user = [{name: 'Ben', last: 'Krakov'},{name: 'Miro', last: 'Lankri'},{name: 'Yinon', last: 'Peretz'}];
-const ThisDir = `${__dirname}/users`
-const removeFilesAndFolder = async ()=>
-{
-    readdir(`${ThisDir}`).then(filenames => {
-        for (let filename of filenames) if(path.extname(filename) == ".txt")unlink(`${ThisDir}/${filename}`)
+const express = require ("express")
+const app = express()
+const chalk = require("chalk")
+const {handleError} = require("./utils/errorHandler")
+const router = require("./router/router")
+require('dotenv').config()
 
-        readdir(`${ThisDir}`).then(Files=>{
-            if(!Files.length) rmdir(`${ThisDir}`)
-            else console.log(`Folder Not Empty Please See The File \n >> ${Files}`);
-        })
-    }).catch(err=>{
-        console.log(err.message);
-    })
-}
+const PORT = process.env.PORT;
+const TextListen = `Miros Server Listen On URL :  http://localhost:${PORT}`
 
-const makeAndRemoveFileAndFolder = async ()=>
-{
-try {
-   await readdir(`${ThisDir}`)
-        removeFilesAndFolder()
-    } catch (error) {
-        await mkdir(`${ThisDir}`)
-            user.forEach(user=>{
-                writeFile(`${ThisDir}/${user.name}-${user.last}.txt`,`Name: ${user.name} Last:${user.last}`)
-            })
-        setTimeout(() => {
-            removeFilesAndFolder()
-        }, 5000);
-    }
-}
+app.use(express.json());
+app.use(express.static("./public"));
 
-makeAndRemoveFileAndFolder()
+app.use(router)
+
+// app.get('/',(req,res)=>{
+//     // throw new Error("This Err")
+//     res.send(TextListen)
+// })
+
+
+
+
+
+app.use((err,req,res,next)=>{
+    console.log(chalk.redBright(err.message));
+    return handleError(res,500,err.message)
+})
+app.listen(PORT,(err)=>{
+    if (err) console.log(err);
+    console.log(chalk.blue(TextListen));
+})
