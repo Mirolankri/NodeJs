@@ -3,11 +3,12 @@ const app = express()
 const chalk = require("chalk")
 const {handleError} = require("./utils/errorHandler")
 const router = require("./router/router")
+const cors = require("./middlewares/cors")
 require('dotenv').config()
 
 const PORT = process.env.PORT;
 const TextListen = `Miros Server Listen On URL :  http://localhost:${PORT}`
-
+app.use(cors)
 app.use(express.json());
 app.use(express.static("./public"));
 
