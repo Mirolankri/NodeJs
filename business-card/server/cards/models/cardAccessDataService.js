@@ -1,4 +1,6 @@
+const mongoose = require("mongoose")
 const { handleError } = require("../../utils/errorHandler")
+const CardSchema  = require("./mongodb/Card")
 
 const DB = process.env.DB || "MONGODB"
 const findMyCards = async(_userId)=>{
@@ -47,7 +49,11 @@ const create = async(_card)=>{
     if(DB === "MONGODB")
     {
         try {
-            return Promise.resolve(`card no. ${_card.id}`)
+            // const Test = CardSchema
+            const card = new CardSchema(_card)
+            await card.save()
+            // return card
+            return Promise.resolve(`${card}`)
         } catch (error) {
             // handleError()
             error.status = 404

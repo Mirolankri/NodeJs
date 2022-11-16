@@ -1,0 +1,15 @@
+16-11-2022:=> Message:Joi Error: "address.houseNumber" is required, Status:400
+16-11-2022 22:11:19:=> Res:  Message:Joi Error: "address.houseNumber" is required, Status:400
+16-11-2022 22:11:56:=> Res:  Message:Test is not a constructor, Status:404
+16-11-2022 22:12:15:=> Res:  Message:E11000 duplicate key error collection: business-card-app.cards index: email_1 dup key: { email: "i@imiros.co.il" }, Status:404
+16-11-2022 22:16:22:=> Res:  Message:E11000 duplicate key error collection: business-card-app.cards index: email_1 dup key: { email: "i@imiros.co.illd" }, Status:404
+16-11-2022 22:16:22:=> Res:  Message:card validation failed: email: Path `email` is invalid (i@imiros.co.illdf)., Status:404
+16-11-2022 22:47:40:=> Res:  Message:handleJoiError is not defined, Status:500
+16-11-2022 22:50:36:=> Res:  Message:Joi Error: "name" is required, Status:400
+16-11-2022 22:51:11:=> Res:  Message:Joi Error: "isBusiness" is required, Status:400
+16-11-2022 22:51:11:=> Res:  Message:Joi Error: "web" is not allowed, Status:400
+16-11-2022 22:51:11:=> Res:  Message:user validation failed: password: Path `password` is required., Status:404
+16-11-2022 22:53:45:=> Res:  Message:user validation failed: Password: Path `Password` is invalid (Miros!@34556)., Status:404
+16-11-2022 22:53:45:=> Res:  Message:user validation failed: Password: Path `Password` is invalid (Aa123456!)., Status:404
+16-11-2022 22:56:24:=> Res:  Message:E11000 duplicate key error collection: business-card-app.users index: email_1 dup key: { email: "i@imiro.co.il" }, Status:404
+16-11-2022 22:56:24:=> Res:  Message:Joi Error: user "mail" mast be a valid mail, Status:400

@@ -1,0 +1,8 @@
+11-11-2022:=> Message:results is not defined, Status:500
+11-11-2022 17:16:10:=> Res:  Message:Unexpected token u in JSON at position 0, Status:500
+11-11-2022 17:16:31:=> Res:  Message:Cannot read properties of undefined (reading '0'), Status:500
+11-11-2022 17:16:59:=> Res:  Message:Cannot read properties of undefined (reading '0'), Status:500
+11-11-2022 17:17:18:=> Res:  Message:Cannot read properties of undefined (reading '0'), Status:500
+11-11-2022 17:17:35:=> Res:  Message:Cannot read properties of undefined (reading '0'), Status:500
+11-11-2022 17:18:41:=> Res:  Message:results is not defined, Status:500
+11-11-2022 17:18:54:=> Res:  Message:Cannot read properties of undefined (reading '0'), Status:500

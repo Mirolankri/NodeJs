@@ -1,4 +1,5 @@
 const { handleError } = require("../../utils/errorHandler")
+const UserSchema = require("../models/mongodb/User")
 
 const DB = process.env.DB || "MONGODB"
 const findOne = async(_id)=>{
@@ -46,7 +47,9 @@ const register = async(_user)=>{
     if(DB === "MONGODB")
     {
         try {
-            return Promise.resolve(`register success ${_user.id}`)
+            const User = new UserSchema(_user)
+            await User.save()
+            return Promise.resolve(`register success ${User}`)
         } catch (error) {
             // handleError()
             error.status = 404

@@ -1,5 +1,7 @@
 const express = require ("express")
 const chalk = require("chalk");
+const mysql = require('mysql');
+
 const { getCards,getCard,CreateCard,DeleteCard, UpdateCard,LikeCard,getMyCard } = require("../service/cardService");
 const { handleError } = require("../../utils/errorHandler");
 // const app = express()
@@ -12,11 +14,34 @@ const EndPoint = `http://localhost:${process.env.PORT}/cards`;
 //################ GET ############################
 router.get("/", async (req,res,next)=>{
     console.log(`${EndPoint}/`);
+    console.log("sql");
+    var connection = mysql.createConnection({
+      host     : '130.61.216.74',
+      user     : 'imiro',
+      password : 'k1fu12IpmrG2v7L',
+      database : 'miros'
+    });
+    
+    connection.connect();
+    let data
+    connection.query('SELECT * FROM `numbers` ORDER BY `numbers`.`id` DESC LIMIT 10', function (error, results, fields) {
+      if (error) throw error;
+
+      data = results
+      console.dir(results);
+      // console.log(fields);
+      console.log('The solution is: ', results[0].id);
+    });
+    
+    connection.end();
     // return res.send(`${EndPoint}/`)
     // next()
     try {
+      console.dir(data);
+
       const cards = await getCards()
-      return res.send(cards)
+      // return res.send(cards)
+      return res.send(data[0].id)
     } catch (error) {
       return handleError(res,error.status || 500,error.message)
       

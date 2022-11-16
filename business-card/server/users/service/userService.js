@@ -1,11 +1,18 @@
-const {find,findOne,register,Remove,Update,changeIsBizStatus,login} = require("../models/userAccessDataService")
+const {find,findOne,register,Remove,Update,changeIsBizStatus,login} = require("../models/userAccessDataService");
+const registerValidation = require("../validations/Joi/registerValidation");
+const normalizeUser = require("../helpers/normalizeUser");
+const { handleJoiError } = require("../../utils/errorHandler");
 
 const registerUser = async (_rawuser)=>{
-    let user = {..._rawuser}
-    user.created_at = new Date()
+    const { error } = registerValidation(_rawuser);
+    if (error) return handleJoiError(error);
+
+    // let user = {..._rawuser}
     try {
-        user = await register(user)
-        return Promise.resolve(user)
+        
+        let User = normalizeUser(_rawuser)
+        User = await register(User)
+        return Promise.resolve(User)
     } catch (error) {
         return Promise.reject(error)
     }
@@ -22,7 +29,6 @@ const loginUser = async (_user)=>{
     }
 
 }
-
 const getusers = async ()=>{
     try {
         const users = await find()
@@ -60,7 +66,6 @@ const changeUserBusinessStatus = async (_id)=>{
     }
 
 }
-
 const Deleteuser = async (_id)=>{
     let user = _id
     console.log(user);
