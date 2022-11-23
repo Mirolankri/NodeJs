@@ -31,7 +31,6 @@ app.use(router)
 
 
 
-
 app.use((err,req,res,next)=>{
     console.log(chalk.redBright(err.message));
     return handleError(res,500,err.message)

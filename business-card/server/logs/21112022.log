@@ -1,0 +1,13 @@
+21-11-2022:=> Message:E11000 duplicate key error collection: business-card-app.cards index: email_1 dup key: { email: "i@imiros.co.is" }, Status:404
+21-11-2022 18:50:16:=> Res:  Message:card.find is not a function, Status:404
+21-11-2022 18:53:5:=> Res:  Message:classtest is not a constructor, Status:404
+21-11-2022 18:54:23:=> Res:  Message:Test.find is not a constructor, Status:404
+21-11-2022 18:55:34:=> Res:  Message:`Model.find()` cannot run without a model as `this`. Make sure you are not calling `new Model.find()`, Status:404
+21-11-2022 18:56:43:=> Res:  Message:`Model.find()` cannot run without a model as `this`. Make sure you are not calling `new Model.find()`, Status:404
+21-11-2022 18:56:43:=> Res:  Message:`Model.find()` cannot run without a model as `this`. Make sure you are not calling `new Model.find()`, Status:404
+21-11-2022 18:59:42:=> Res:  Message:card.find is not a constructor, Status:404
+21-11-2022 19:1:28:=> Res:  Message:`Model.find()` cannot run without a model as `this`. Make sure you are not calling `new Model.find()`, Status:404
+21-11-2022 19:54:14:=> Res:  Message:Cast to ObjectId failed for value "miro" (type string) at path "_id" for model "card", Status:404
+21-11-2022 19:54:14:=> Res:  Message:Cast to ObjectId failed for value "637b9a5fb16e88dc14f450d73" (type string) at path "_id" for model "card", Status:404
+21-11-2022 20:5:50:=> Res:  Message:Invalid status code: 3, Status:500
+21-11-2022 20:6:9:=> Res:  Message:Invalid status code: 3, Status:500

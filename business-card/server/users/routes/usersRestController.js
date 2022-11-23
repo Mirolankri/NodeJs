@@ -1,7 +1,10 @@
 const express = require ("express")
 const chalk = require("chalk");
-const { getusers,getuser,registerUser,Deleteuser, Updateuser,loginUser,changeUserBusinessStatus } = require("../service/userService");
-const { handleError } = require("../../utils/errorHandler");
+const { registerUser,loginUser,getusers,getuser,Deleteuser,Updateuser,changeUserBusinessStatus } = require("../models/userAccessDataService");
+const { handleError, handleJoiError } = require("../../utils/errorHandler");
+const registerValidation = require("../validations/Joi/registerValidation");
+const { validateUserUpdate, validateLogin } = require("../validations/userValidationService");
+const normalizeUser = require("../helpers/normalizeUser");
 // const app = express()
 const router = express.Router()
 require('dotenv').config()
@@ -35,16 +38,22 @@ router.get("/:id", async (req,res,next)=>{
 //################ POST ############################
 
 router.post("/",async (req,res,next)=>{
-  
+  const { error } = registerValidation(req.body);
+  if (error) return handleJoiError(error);
+
   try {
-    const user = await registerUser(req.body);
+    
+    let user = await normalizeUser(req.body);
+     user = await registerUser(user);
     return res.send(user).status(201)
   } catch (error) {
     return handleError(res,error.status || 500,error.message)
   }
 })
 router.post("/login",async (req,res,next)=>{
-  
+  const { error } = validateLogin(req.body);
+  if (error) return handleJoiError(error);
+
   try {
     const user = await loginUser(req.body);
     return res.send(user)
@@ -56,10 +65,14 @@ router.post("/login",async (req,res,next)=>{
 //################ PUT ############################
 
 router.put("/:id", async (req,res,next)=>{
+  const { error } = validateUserUpdate(req.body);
+  if (error) return handleJoiError(error);
+
   const id = req.params.id
   const rawuser = req.body
   try {
-    const user = await Updateuser(id,rawuser);
+    let user = await normalizeUser(rawuser);
+        user = await Updateuser(id,user);
     return res.send(user)
   } catch (error) {
     return handleError(res,error.status || 500,error.message)

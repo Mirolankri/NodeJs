@@ -2,6 +2,6 @@ const mongoose = require("mongoose")
 const chalk = require("chalk")
 
 mongoose
-    .connect("mongodb+srv://Miros:Im171013@cluster0.vdfyzbz.mongodb.net/business-card-app")
+    .connect("mongodb://localhost:27017/business-card-app")
     .then(()=>console.log("connected to Mongo local"))
     .catch((err)=>console.log(`Err Mongo ${err}`))

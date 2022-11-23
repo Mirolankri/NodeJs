@@ -1,0 +1,2 @@
+24-11-2022:=> Message:index is not defined, Status:404
+24-11-2022 0:15:46:=> Res:  Message:E11000 duplicate key error collection: business-card-app.cards index: email_1 dup key: { email: "i@imiros.co.sad" }, Status:404

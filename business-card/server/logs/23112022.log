@@ -1,0 +1,12 @@
+23-11-2022:=> Message:normalizeCard is not defined, Status:500
+23-11-2022 22:8:53:=> Res:  Message:Assignment to constant variable., Status:500
+23-11-2022 22:8:53:=> Res:  Message:Assignment to constant variable., Status:500
+23-11-2022 22:9:22:=> Res:  Message:card validation failed: user_id: Cast to ObjectId failed for value "false" (type boolean) at path "user_id" because of "BSONTypeError", Status:404
+23-11-2022 22:37:6:=> Res:  Message:E11000 duplicate key error collection: business-card-app.cards index: email_1 dup key: { email: "i@imiros.co.sa" }, Status:404
+23-11-2022 22:40:59:=> Res:  Message:Cast to ObjectId failed for value "637e8494e864e4a0b8d848612" (type string) at path "_id" for model "card", Status:404
+23-11-2022 22:44:57:=> Res:  Message:Assignment to constant variable., Status:404
+23-11-2022 22:49:24:=> Res:  Message:_id is not defined, Status:404
+23-11-2022 22:52:10:=> Res:  Message:Cast to ObjectId failed for value "1234" (type string) at path "_id" for model "card", Status:404
+23-11-2022 23:5:52:=> Res:  Message:Joi Error: card "web" mast be a valid url, Status:400
+23-11-2022 23:6:59:=> Res:  Message:Joi Error: "address" is required, Status:400
+23-11-2022 23:41:38:=> Res:  Message:message is not defined, Status:404

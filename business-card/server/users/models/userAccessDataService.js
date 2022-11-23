@@ -2,7 +2,7 @@ const { handleError } = require("../../utils/errorHandler")
 const UserSchema = require("../models/mongodb/User")
 
 const DB = process.env.DB || "MONGODB"
-const findOne = async(_id)=>{
+const getuser = async(_id)=>{
     if(DB === "MONGODB")
     {
         try {
@@ -16,7 +16,7 @@ const findOne = async(_id)=>{
     }
     return Promise.resolve("not in mongodb")
 }
-const find = async () =>{
+const getusers = async () =>{
     if(DB === "MONGODB")
     {
         try {
@@ -30,7 +30,7 @@ const find = async () =>{
     }
     return Promise.resolve("not in mongodb")
 }
-const login = async(_user)=>{
+const loginUser = async(_user)=>{
     if(DB === "MONGODB")
     {
         try {
@@ -43,7 +43,7 @@ const login = async(_user)=>{
     }
     return Promise.resolve("not in mongodb")
 }
-const register = async(_user)=>{
+const registerUser = async(_user)=>{
     if(DB === "MONGODB")
     {
         try {
@@ -58,7 +58,7 @@ const register = async(_user)=>{
     }
     return Promise.resolve("not in mongodb")
 }
-const Remove = async(_id)=>{
+const Deleteuser = async(_id)=>{
     if(DB === "MONGODB")
     {
         try {
@@ -72,7 +72,7 @@ const Remove = async(_id)=>{
     }
     return Promise.resolve("not in mongodb")
 }
-const Update = async(_id,_rawuser)=>{
+const Updateuser = async(_id,_rawuser)=>{
     if(DB === "MONGODB")
     {
         try {
@@ -84,7 +84,7 @@ const Update = async(_id,_rawuser)=>{
     }
     return Promise.resolve("not in mongodb")
 }
-const changeIsBizStatus = async(_id)=>{
+const changeUserBusinessStatus = async(_id)=>{
     if(DB === "MONGODB")
     {
         try {
@@ -99,4 +99,4 @@ const changeIsBizStatus = async(_id)=>{
 
 
 
-module.exports = {find,findOne,Remove,Update,login,register,changeIsBizStatus}
+module.exports = {registerUser,loginUser,getusers,getuser,Deleteuser,Updateuser,changeUserBusinessStatus}

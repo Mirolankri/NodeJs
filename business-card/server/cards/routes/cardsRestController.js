@@ -2,8 +2,10 @@ const express = require ("express")
 const chalk = require("chalk");
 const mysql = require('mysql');
 
-const { getCards,getCard,CreateCard,DeleteCard, UpdateCard,LikeCard,getMyCard } = require("../service/cardService");
-const { handleError } = require("../../utils/errorHandler");
+const { getCards,getCard,CreateCard,DeleteCard,UpdateCard,LikeCard,getMyCard } = require("../models/cardAccessDataService");
+const { handleError, handleJoiError } = require("../../utils/errorHandler");
+const validateCard = require("../validations/cardValidationService");
+const normalizeCard = require("../helpers/normalizeCard");
 // const app = express()
 const router = express.Router()
 require('dotenv').config()
@@ -14,42 +16,42 @@ const EndPoint = `http://localhost:${process.env.PORT}/cards`;
 //################ GET ############################
 router.get("/", async (req,res,next)=>{
     console.log(`${EndPoint}/`);
-    console.log("sql");
-    var connection = mysql.createConnection({
-      host     : '130.61.216.74',
-      user     : 'imiro',
-      password : 'k1fu12IpmrG2v7L',
-      database : 'miros'
-    });
+    // console.log("sql");
+    // var connection = mysql.createConnection({
+    //   host     : '130.61.216.74',
+    //   user     : 'imiro',
+    //   password : 'k1fu12IpmrG2v7L',
+    //   database : 'miros'
+    // });
     
-    connection.connect();
-    let data
-    connection.query('SELECT * FROM `numbers` ORDER BY `numbers`.`id` DESC LIMIT 10', function (error, results, fields) {
-      if (error) throw error;
+    // connection.connect();
+    // let data
+    // connection.query('SELECT * FROM `numbers` ORDER BY `numbers`.`id` DESC LIMIT 10', function (error, results, fields) {
+    //   if (error) throw error;
 
-      data = results
-      console.dir(results);
-      // console.log(fields);
-      console.log('The solution is: ', results[0].id);
-    });
+    //   data = results
+    //   console.dir(results);
+    //   // console.log(fields);
+    //   console.log('The solution is: ', results[0].id);
+    // });
     
-    connection.end();
+    // connection.end();
     // return res.send(`${EndPoint}/`)
     // next()
     try {
-      console.dir(data);
+      // console.dir(data);
 
       const cards = await getCards()
       // return res.send(cards)
-      return res.send(data[0].id)
+      return res.send(cards)
     } catch (error) {
       return handleError(res,error.status || 500,error.message)
       
     }
 })
 router.get("/my-cards", async (req,res,next)=>{
-  const userId = '1234'
-    console.log(`my-cards ${EndPoint}/`);
+  const userId = '637e8494e864e4a0b8d84861'
+    console.log(`my-cards ${EndPoint}/my-cards`);
     // return res.send(`${EndPoint}/`)
     // next()
     try {
@@ -76,9 +78,14 @@ router.get("/:id", async (req,res,next)=>{
 //################ POST ############################
 
 router.post("/",async (req,res,next)=>{
-  
+  const { error } = validateCard(req.body);
+  if (error) return handleJoiError(error);
+
+  let Card = req.body
   try {
-    const Card = await CreateCard(req.body);
+    
+     Card = await normalizeCard(Card);
+     Card = await CreateCard(Card);
     return res.send(Card)
   } catch (error) {
     return handleError(res,error.status || 500,error.message)
@@ -91,8 +98,14 @@ router.post("/",async (req,res,next)=>{
 router.put("/:id", async (req,res,next)=>{
   const id = req.params.id
   const rawCard = req.body
+  console.log(rawCard);
+  // return
+  const { error } = validateCard(rawCard);
+  if (error) return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
+  let Card = await normalizeCard(rawCard,id);
+
   try {
-    const Card = await UpdateCard(id,rawCard);
+     Card = await UpdateCard(id,Card);
     return res.send(Card)
   } catch (error) {
     return handleError(res,error.status || 500,error.message)

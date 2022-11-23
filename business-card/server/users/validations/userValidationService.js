@@ -9,6 +9,9 @@ const validateRegistration = (user) => {
 const validateLogin = (user) => {
     if(validatior === 'Joi') return loginValidation(user);
 }
-
+const validateUserUpdate = user => {
+    if (validator === "Joi") return userUpdateValidation(user);
+  };
 exports.validateRegistration = validateRegistration;
 exports.validateLogin = validateLogin;
+exports.validateUserUpdate = validateUserUpdate;
