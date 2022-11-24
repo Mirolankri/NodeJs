@@ -107,9 +107,10 @@ const UpdateCard = async(_id,_rawCard)=>{
             const Test = mongoose.model("card", CardSchema);
             
             let card = await Test.findByIdAndUpdate(_id,_rawCard,{new:true})
-            // if(!card) card = `לא נמצאו נתונים במסד הנתונים`
+            console.log(card);
+            if(card == null) card = `לא נמצאו נתונים במסד הנתונים`
 
-            return Promise.resolve(`Card ${_id} Updated`)
+            return Promise.resolve(card)
         } catch (error) {
             error.status = 404
             return Promise.reject(error)
