@@ -4,6 +4,7 @@ const SRM2 = {
     minLength: 2,
     required: true
 }
+
 const NRM1 = {
     type: Number,
     trim: true,

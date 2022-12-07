@@ -1,0 +1,137 @@
+{
+  "users": [
+    {
+      "Name": {
+        "first": "Miros1",
+        "last": "Lankri"
+      },
+      "Password": "Aa123456!",
+      "Phone": "0542412241",
+      "email": "id1@imiro.co.il",
+      "image": {
+        "url": "https://cdn.pixabay.com/photo/2022/10/07/09/06/bridge-7504605_1280.jpg",
+        "alt": "New image"
+      },
+      "isBusiness": true,
+      "address": {
+        "state": "israel",
+        "country": "israel",
+        "city": "holon",
+        "street": "kapah",
+        "housenumber": "63",
+        "zip": "58243"
+      }
+    },
+    {
+      "Name": {
+        "first": "Miros2",
+        "last": "Lankri"
+      },
+      "Password": "Aa123456!",
+      "Phone": "0542412241",
+      "email": "id2@imiro.co.il",
+      "image": {
+        "url": "https://cdn.pixabay.com/photo/2022/10/07/09/06/bridge-7504605_1280.jpg",
+        "alt": "New image"
+      },
+      "isBusiness": false,
+      "isAdmin": true,
+      "address": {
+        "state": "israel",
+        "country": "israel",
+        "city": "holon",
+        "street": "kapah",
+        "housenumber": "63",
+        "zip": "58243"
+      }
+    },
+    {
+      "Name": {
+        "first": "Miros3",
+        "last": "Lankri"
+      },
+      "Password": "Aa123456!",
+      "Phone": "0542412241",
+      "email": "id3@imiro.co.il",
+      "image": {
+        "url": "https://cdn.pixabay.com/photo/2022/10/07/09/06/bridge-7504605_1280.jpg",
+        "alt": "New image"
+      },
+      "isBusiness": false,
+      "isAdmin": false,
+      "address": {
+        "country": "israel",
+        "city": "holon",
+        "street": "kapah",
+        "housenumber": "63",
+        "zip": "58243"
+      }
+    }
+  ],
+  "cards": [
+    {
+      "title": "Miros lankris1",
+      "subtitle": "Miros.ml1",
+      "description": "Lets Code",
+      "phone": "0542412241",
+      "email": "i@miros1.co.sad",
+      "web": "https://Miros.ml",
+      "image": {
+        "url": "https://cdn.pixabay.com/photo/2022/10/07/09/06/bridge-7504605_1280.jpg",
+        "alt": "New image"
+      },
+      "address": {
+        "state": "israel",
+        "country": "israel",
+        "city": "holon",
+        "street": "kapah",
+        "housenumber": "63",
+        "zip": "58243"
+      },
+      "user_id": "638e40fec4aa1f9dcfd24c51"
+    },
+
+    {
+      "title": "Miros lank2",
+      "subtitle": "Miros.mdl",
+      "description": "Lets Code",
+      "phone": "0542412241",
+      "email": "i@miros2.co.sad",
+      "web": "https://Miros.ml",
+      "image": {
+        "url": "https://cdn.pixabay.com/photo/2022/10/07/09/06/bridge-7504605_1280.jpg",
+        "alt": "New image"
+      },
+      "address": {
+        "state": "israel",
+        "country": "israel",
+        "city": "holon",
+        "street": "kapah",
+        "housenumber": "63",
+        "zip": "58243"
+      },
+      "user_id": "638e40fec4aa1f9dcfd24c51"
+    },
+    {
+      "title": "Miros lank3",
+      "subtitle": "Miros.mdl",
+      "description": "Lets Code",
+      "phone": "0542412241",
+      "email": "i@miros3.co.sad",
+      "web": "https://Miros.ml",
+      "image": {
+        "url": "https://cdn.pixabay.com/photo/2022/10/07/09/06/bridge-7504605_1280.jpg",
+        "alt": "New image"
+      },
+      "address": {
+        "state": "israel",
+        "country": "israel",
+        "city": "holon",
+        "street": "kapah",
+        "housenumber": "63",
+        "zip": "58243"
+      },
+      "user_id": "638e40fec4aa1f9dcfd24c51"
+    }
+  ]
+}

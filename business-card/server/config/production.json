@@ -1,0 +1,9 @@
+{
+    "NODE_ENV":"production",
+    "PORT":"9191",
+    "DB_NAME":"Miros",
+    "DB_PASSWORD":"Im171013",
+    "LOGGER":"morgan",
+    "DB":"MONGODB",
+    "TOKEN_GENERATOR":"jwt"
+}

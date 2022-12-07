@@ -8,7 +8,7 @@ router.use("/cards",cardsRestController)
 router.use("/users",usersRestController)
 
 router.use((req,res)=>{
-    handleError(res,404,"אינך מורשה")
+    handleError(res,404,"עמוד לא נמצא")
 })
 
 module.exports = router

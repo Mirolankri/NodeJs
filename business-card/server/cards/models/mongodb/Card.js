@@ -5,9 +5,9 @@ const { SRM2,NRM1 } = require("./Template");
 
 
 const CardSchema = mongoose.Schema({
-    // user_id:{
-    //     type:mongoose.Schema.Types.ObjectId
-    // },
+    user_id:{
+        type:mongoose.Schema.Types.ObjectId
+    },
     title: SRM2,
     subtitle: SRM2,
     description: SRM2,
@@ -31,7 +31,9 @@ const CardSchema = mongoose.Schema({
     address: AddressSchema,
     bizNumber:{
         type:Number,
-        required: true
+        required: true,
+        minLength: 7,
+        maxLength: 7
     },
     created_at:{
         type:Date,

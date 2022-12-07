@@ -2,10 +2,12 @@ const express = require ("express")
 const chalk = require("chalk");
 const mysql = require('mysql');
 
-const { getCards,getCard,CreateCard,DeleteCard,UpdateCard,LikeCard,getMyCard } = require("../models/cardAccessDataService");
+const { getCards,getCard,CreateCard,DeleteCard,UpdateCard,LikeCard,getMyCard,getMyLikes,UpdateBizNumber } = require("../models/cardAccessDataService");
 const { handleError, handleJoiError } = require("../../utils/errorHandler");
 const validateCard = require("../validations/cardValidationService");
 const normalizeCard = require("../helpers/normalizeCard");
+const auth = require("../../auth/authService");
+
 // const app = express()
 const router = express.Router()
 require('dotenv').config()
@@ -49,13 +51,25 @@ router.get("/", async (req,res,next)=>{
       
     }
 })
-router.get("/my-cards", async (req,res,next)=>{
-  const userId = '637e8494e864e4a0b8d84861'
+router.get("/my-cards",auth, async (req,res,next)=>{
+  const userId = req.user._id
     console.log(`my-cards ${EndPoint}/my-cards`);
-    // return res.send(`${EndPoint}/`)
-    // next()
     try {
+      if(!req.user.isBusiness) throw new Error("אתה לא משתמש עסקי")
+
       const card = await getMyCard(userId)
+      return res.send(card)
+    } catch (error) {
+      return handleError(res,error.status || 500,error.message)
+      
+    }
+})
+router.get("/my-likes",auth, async (req,res,next)=>{
+  const userId = req.user._id
+    console.log(`my-likes ${EndPoint}/my-cards`);
+    try {
+
+      const card = await getMyLikes(userId)
       return res.send(card)
     } catch (error) {
       return handleError(res,error.status || 500,error.message)
@@ -72,84 +86,86 @@ router.get("/:id", async (req,res,next)=>{
   } catch (error) {
     return handleError(res,error.status || 500,error.message)
   }
-  // next()
 })
 
 //################ POST ############################
 
-router.post("/",async (req,res,next)=>{
-  const { error } = validateCard(req.body);
-  if (error) return handleJoiError(error);
-
+router.post("/",auth, async (req,res,next)=>{
   let Card = req.body
   try {
-    
-     Card = await normalizeCard(Card);
+    if(!req.user.isBusiness) throw new Error("אתה לא משתמש עסקי")
+    const { error } = validateCard(Card);
+    if (error) return handleJoiError(error);
+
+     Card = await normalizeCard(Card,req.user._id);
      Card = await CreateCard(Card);
-    return res.send(Card)
+    return res.status(201).send(Card)
   } catch (error) {
     return handleError(res,error.status || 500,error.message)
   }
-  // next()
 })
 
 //################ PUT ############################
 
-router.put("/:id", async (req,res,next)=>{
-  const id = req.params.id
-  const rawCard = req.body
-  console.log(rawCard);
-  // return
-  const { error } = validateCard(rawCard);
-  if (error) return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
-  let Card = await normalizeCard(rawCard,id);
-
+router.put("/:id",auth,async (req,res,next)=>{
   try {
-     Card = await UpdateCard(id,Card);
+    const userLogin = req.user
+    const id = req.params.id
+    const rawCard = req.body
+    if(!userLogin.isBusiness) throw new Error(`אתה לא משתמש עסקי`)
+    
+    const { error } = validateCard(rawCard);
+    if (error) return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
+    let Card = await normalizeCard(rawCard,userLogin._id);
+
+    
+      Card = await UpdateCard(id,Card,userLogin);
+      return res.send(Card)
+  } catch (error) {
+    return handleError(res,error.status || 500,error.message)
+  }
+
+})
+
+//################ PATCH ############################
+
+router.patch("/update-biznumber/:id",auth,async (req,res,next)=>{
+  const id = req.params.id
+  const userid = req.user
+  const BizNumber = req.body.BizNumber
+  try {
+    if(!userid.isAdmin) throw new Error(`אתה לא מנהל`)
+    const Card = await UpdateBizNumber(id,BizNumber);
     return res.send(Card)
   } catch (error) {
     return handleError(res,error.status || 500,error.message)
   }
 
-  console.log(`${EndPoint}/${id}`);
-  return res.send(`${EndPoint}/${id}`)
-// next()
 })
-
-//################ PATCH ############################
-
-router.patch("/:id",async (req,res,next)=>{
+router.patch("/:id",auth,async (req,res,next)=>{
   const id = req.params.id
-  const userid = '123456'
+  const userid = req.user._id
   try {
+    
     const Card = await LikeCard(id,userid);
     return res.send(Card)
   } catch (error) {
     return handleError(res,error.status || 500,error.message)
   }
 
-
-  // next()
 })
 //################  DELETE ############################
 
-router.delete("/:id",async (req,res,next)=>{
-  const card_id = req.params.id
-  console.log(card_id);
-  const Card = await DeleteCard(card_id)
-  // console.log(`in card delete`);
-  return res.send(Card)
-// next()
+router.delete("/:id",auth,async (req,res,next)=>{
+  try {
+    const userLogin = req.user
+    const card_id = req.params.id
+      Card = await DeleteCard(card_id,userLogin)
+      return res.send(Card)
+  } catch (error) {
+    return handleError(res,error.status || 500,error.message)
+  }
+
 })
-
-
-
-
-router.post('/new', (req, res, next) => {
-    console.log('Get Post New')
-    next()
-  }, (req, res, next) => {
-    res.send(req.body)
-  })
 
 module.exports = router

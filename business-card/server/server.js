@@ -7,36 +7,26 @@ const cors = require("./middlewares/cors")
 const morgen = require("./logger/loggerService")
 const _ = require("lodash")
 const connectToDB = require("./db/dbService")
+const config = require('config')
+const {generateInitialCards,generateInitialUsers} = require("./initialData/initialDataService")
 
+// console.log(config);
 require("./utils/timeService")
-require('dotenv').config()
-
-const PORT = process.env.PORT;
-const ENV = process.env.ENV;
+// require('dotenv').config()
+const PORT = config.get("PORT");
+const ENV = config.get("NODE_ENV");
 const TextListen = `Miros Server Listen On URL :  http://localhost:${PORT}`
 app.use(cors)
-// app.use(morgan(chalk.cyanBright("[:date[web]]")))
 app.use(morgen)
 app.use(express.json());
 app.use(express.static("./public"));
 
 app.use(router)
 
-
-// app.get('/',(req,res)=>{
-//     // throw new Error("This Err")
-//     res.send(TextListen)
-// })
-
-
-
-
-app.use((err,req,res,next)=>{
-    console.log(chalk.redBright(err.message));
-    return handleError(res,500,err.message)
-})
 app.listen(PORT,(err)=>{
     if (err) console.log(err);
     console.log(chalk.blue(TextListen));
     connectToDB(ENV)
+    generateInitialCards()
+    generateInitialUsers()
 })
