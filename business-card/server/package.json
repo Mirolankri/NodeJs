@@ -4,8 +4,8 @@
   "description": "build business card",
   "main": "server.js",
   "scripts": {
-    "start": "export NODE_ENV=production && node .",
-    "dev": "export NODE_ENV=development && nodemon .",
+    "start": "export || cross-env NODE_ENV=production && node .",
+    "dev": "export || cross-env NODE_ENV=development && nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Miros",
