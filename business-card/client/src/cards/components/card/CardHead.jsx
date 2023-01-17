@@ -11,6 +11,7 @@ const CardHead = ({image}) => {
 }
 
 CardHead.propTypes = {
-    image:imageType.isRequired
+    image: imageType.isRequired
 }
+
 export default CardHead

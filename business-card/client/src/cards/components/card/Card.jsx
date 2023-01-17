@@ -4,32 +4,32 @@ import { CardActionArea } from '@mui/material'
 import CardHead from './CardHead'
 import CardBody from './CardBody'
 import CardActionBar from './CardActionBar'
-// import { objectOf } from 'prop-types'
-import cardType from '../../models/types/cardType'
 import { func } from 'prop-types'
+import cardType from '../../models/types/cardType'
+import { useNavigate } from 'react-router-dom'
+import ROUTES from '../../../routes/routesModel'
 
-function CardComponent({card, onDeleteClick, onLikeClick, onEditClick}) {
+function CardComponent({card, handleDeleteCard, handleLikeCard}) {
+    const navigate = useNavigate();
 
     return (
         <Card sx={{ minWidth: 280 }} >
-            <CardActionArea>
+            <CardActionArea onClick={() => navigate(`${ROUTES.CARD_DETAILS}/${card._id}`)}>
                 {/* Card Head */}
                 <CardHead image={card.image} />
                 {/* Card Body */}
                 <CardBody card={card}/>
             </CardActionArea>
             {/* Card Actions */}
-            <CardActionBar onDeleteClick={onDeleteClick} onLikeClick={onLikeClick} onEditClick={onEditClick} bizNumber={card.bizNumber} />
+            <CardActionBar cardId={card._id} handleDeleteCard={handleDeleteCard} handleLikeCard={handleLikeCard} />
         </Card>
     )
 }
 
 CardComponent.propTypes = {
-    card:cardType.isRequired,
-    onDeleteClick:func.isRequired,
-    onLikeClick:func.isRequired,
-    onEditClick:func.isRequired
+    card: cardType.isRequired,
+    handleDeleteCard: func.isRequired,
+    handleLikeCard: func.isRequired
 }
-
 
 export default CardComponent

@@ -34,6 +34,7 @@ const CardBody = ({card}) => {
 }
 
 CardBody.propTypes = {
-    card:cardType.isRequired
+    card: cardType.isRequired
 }
+
 export default CardBody

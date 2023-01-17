@@ -1,13 +1,23 @@
 import './App.css';
-import CardsComponent from './cards/components/Cards';
-// import SandBox from './sandbox/SandBox';
-// import SandBox from './sandbox/SandBox';
+import Layout from './layout/Layout'
+import { SnackBarProvider } from './providers/SnackBarProvider';
+import ThemeProvider from './providers/ThemeProvider';
+import Router from './routes/Router'
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      {/* <SandBox/> */}
-      <CardsComponent/>
+      <BrowserRouter>
+        <ThemeProvider>
+          <SnackBarProvider>
+          <Layout>
+            <Router/>
+          </Layout>
+
+          </SnackBarProvider>
+        </ThemeProvider>
+      </BrowserRouter>
     </div>
   );
 }
